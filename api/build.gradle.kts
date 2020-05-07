@@ -25,6 +25,12 @@ android {
         minSdkVersion(16)
         targetSdkVersion(28)
     }
+    sourceSets {
+        getByName("androidTest").setRoot("src/androidTest")
+        getByName("debug").setRoot("src/androidDebug")
+        getByName("main").setRoot("src/androidMain")
+        getByName("test").setRoot("src/androidTest")
+    }
 }
 
 val frameworkName = "EmployeeApi"
