@@ -27,6 +27,7 @@ pluginManagement {
         kotlin("kapt") version kotlinVersion apply false
         kotlin("multiplatform") version kotlinVersion apply false
         kotlin("plugin.spring") version kotlinVersion apply false
+        kotlin("plugin.serialization") version kotlinVersion apply false
 
         id("com.android.library") version gradleAndroidVersion apply false
         id("org.springframework.boot") version springBootVersion apply false

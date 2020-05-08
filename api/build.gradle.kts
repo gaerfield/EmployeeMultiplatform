@@ -1,10 +1,16 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask
 
+val kotlinVersion: String by extra
+val ktorVersion: String by extra
+val coroutinesVersion: String by extra
+val serializationVersion: String by extra
+
 val ideaActive = System.getProperty("idea.active") == "true"
 
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id("com.android.library")
 }
 
@@ -12,8 +18,6 @@ repositories {
     google()
     jcenter()
 }
-
-val kotlinVersion: String by extra
 
 group="de.esag.employee.api"
 version="1.0-SNAPSHOT"
@@ -54,8 +58,13 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion")
             }
         }
+
         commonTest {
             dependencies {
                 implementation(kotlin("test-common"))
@@ -68,10 +77,10 @@ kotlin {
                 api("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
                 api("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
 
-//                api("io.ktor:ktor-client-serialization-jvm:$ktor_version")
-//                api("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version")
-//                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
-//                api("io.ktor:ktor-client-core-jvm:$ktor_version")
+                api("io.ktor:ktor-client-core-jvm:$ktorVersion")
+                api("io.ktor:ktor-client-serialization-jvm:$ktorVersion")
+                api("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
+                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             }
         }
 
@@ -88,10 +97,10 @@ kotlin {
         iosMain.apply {
             dependsOn(mobileMain)
             dependencies {
-//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutines_version")
-//                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serialization_version")
-//                implementation("io.ktor:ktor-client-ios:$ktor_version")
-//                implementation("io.ktor:ktor-client-serialization-native:$ktor_version")
+                implementation("io.ktor:ktor-client-ios:$ktorVersion")
+                implementation("io.ktor:ktor-client-serialization-native:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
             }
         }
 
