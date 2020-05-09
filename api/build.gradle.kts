@@ -41,7 +41,6 @@ val frameworkName = "EmployeeApi"
 
 kotlin {
     jvm()
-    js()
     android()
 
     val setFrameworkBasename = { target : KotlinNativeTarget ->
